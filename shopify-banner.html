@@ -1,0 +1,123 @@
+<!-- ============================================================
+   SHOPIFY HOMEPAGE BANNER
+   How to add this to your Shopify store:
+   1. Go to Online Store > Themes > Customize
+   2. On the homepage, click "Add section" or open an existing section
+   3. Choose "Custom HTML" (or use the theme's code editor)
+   4. Paste this code in
+   5. Replace the image URL with your own banner image URL
+   ============================================================ -->
+
+<div class="custom-banner">
+  <a href="/collections/all" class="custom-banner__link">
+    <img
+      src="https://your-image-url.com/banner.jpg"
+      alt="Shop our latest collection"
+      class="custom-banner__image"
+    />
+    <div class="custom-banner__overlay">
+      <div class="custom-banner__content">
+        <h2 class="custom-banner__title">Welcome to Our Store</h2>
+        <p class="custom-banner__subtitle">Discover our latest collection</p>
+        <span class="custom-banner__button">Shop Now</span>
+      </div>
+    </div>
+  </a>
+</div>
+
+<style>
+  .custom-banner {
+    position: relative;
+    width: 100%;
+    overflow: hidden;
+    border-radius: 8px;
+    margin: 20px 0;
+  }
+
+  .custom-banner__link {
+    display: block;
+    text-decoration: none;
+  }
+
+  .custom-banner__image {
+    width: 100%;
+    height: 500px;
+    object-fit: cover;
+    display: block;
+    transition: transform 0.4s ease;
+  }
+
+  .custom-banner:hover .custom-banner__image {
+    transform: scale(1.03);
+  }
+
+  .custom-banner__overlay {
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(
+      to bottom,
+      rgba(0, 0, 0, 0.1) 0%,
+      rgba(0, 0, 0, 0.5) 100%
+    );
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .custom-banner__content {
+    text-align: center;
+    color: #ffffff;
+    padding: 20px;
+  }
+
+  .custom-banner__title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin: 0 0 12px;
+    text-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
+  }
+
+  .custom-banner__subtitle {
+    font-size: 1.1rem;
+    margin: 0 0 24px;
+    opacity: 0.9;
+  }
+
+  .custom-banner__button {
+    display: inline-block;
+    padding: 14px 36px;
+    background-color: #ffffff;
+    color: #000000;
+    font-size: 1rem;
+    font-weight: 600;
+    border-radius: 4px;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    transition: background-color 0.2s ease, color 0.2s ease;
+  }
+
+  .custom-banner:hover .custom-banner__button {
+    background-color: #000000;
+    color: #ffffff;
+  }
+
+  /* Mobile */
+  @media (max-width: 768px) {
+    .custom-banner__image {
+      height: 280px;
+    }
+
+    .custom-banner__title {
+      font-size: 1.6rem;
+    }
+
+    .custom-banner__subtitle {
+      font-size: 0.95rem;
+    }
+
+    .custom-banner__button {
+      padding: 12px 28px;
+      font-size: 0.9rem;
+    }
+  }
+</style>
