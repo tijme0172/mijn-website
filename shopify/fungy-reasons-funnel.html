@@ -1,0 +1,1033 @@
+<!DOCTYPE html>
+<!--
+  ╔══════════════════════════════════════════════════════════════════╗
+  ║  FUNGY — "8 Reasons" Sales Funnel                               ║
+  ║  Shopify / GemPages compatible self-contained page              ║
+  ╠══════════════════════════════════════════════════════════════════╣
+  ║  HOW TO USE ON SHOPIFY                                          ║
+  ║                                                                  ║
+  ║  Option A — GemPages (recommended)                              ║
+  ║  1. Open GemPages → Create new page                             ║
+  ║  2. Add a "Custom Code" element                                 ║
+  ║  3. Paste everything between the <body> tags                    ║
+  ║     (skip the outer <html>/<head>/<body> wrapper)               ║
+  ║                                                                  ║
+  ║  Option B — Shopify Custom Page Template                        ║
+  ║  1. Online Store → Themes → Edit code                           ║
+  ║  2. Add template: templates/page.funnel.liquid                  ║
+  ║  3. Paste the body content into the template                    ║
+  ║  4. Assign template to a page in Shopify Pages                  ║
+  ║                                                                  ║
+  ║  Option C — Shopify Page HTML editor                            ║
+  ║  1. Pages → Add page → click "<>" for HTML                      ║
+  ║  2. Paste body content (scripts may be stripped — use Option A) ║
+  ║                                                                  ║
+  ║  Update SHOP_URL below to your product URL before publishing     ║
+  ╚══════════════════════════════════════════════════════════════════╝
+-->
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>8 Reasons You'll Never Go Back — Fungy</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─── Brand tokens ─── */
+    :root {
+      --canvas:       #F2EEE8;
+      --surface:      #ffffff;
+      --surface-warm: #EDE9E2;
+      --espresso:     #5C3D2A;
+      --espresso-dk:  #4A3020;
+      --sand:         #C9AA8F;
+      --sand-light:   #E0CDB8;
+      --ink:          #1A1A1A;
+      --mist:         #7A6E65;
+      --sage:         #4E7A5C;
+      --radius-lg:    16px;
+      --radius-xl:    24px;
+      --radius-full:  9999px;
+      --transition:   0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    }
+
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      font-family: 'Inter', system-ui, sans-serif;
+      background: var(--canvas);
+      color: var(--ink);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+
+    /* ─── Utility ─── */
+    .px { padding-left: clamp(1.25rem, 5vw, 5rem); padding-right: clamp(1.25rem, 5vw, 5rem); }
+    .container { max-width: 1280px; margin: 0 auto; }
+    .container-sm { max-width: 820px; margin: 0 auto; }
+    .container-md { max-width: 1024px; margin: 0 auto; }
+    .text-center { text-align: center; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0,0,0,0); }
+
+    /* ─── Typography ─── */
+    .display-xl {
+      font-size: clamp(2.25rem, 6vw, 4.5rem);
+      font-weight: 800;
+      line-height: 1.0;
+      letter-spacing: -0.035em;
+    }
+    .display-lg {
+      font-size: clamp(1.75rem, 4vw, 3.25rem);
+      font-weight: 800;
+      line-height: 1.1;
+      letter-spacing: -0.03em;
+    }
+    .display-md {
+      font-size: clamp(1.4rem, 3vw, 2.25rem);
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+    }
+    .eyebrow {
+      font-size: 0.65rem;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    /* ─── Buttons ─── */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      font-weight: 700;
+      border-radius: var(--radius-full);
+      padding: 1rem 2.25rem;
+      text-decoration: none;
+      transition: background var(--transition), color var(--transition), transform 0.15s;
+      cursor: pointer;
+      border: none;
+    }
+    .btn:active { transform: scale(0.97); }
+    .btn-primary { background: var(--espresso); color: var(--canvas); }
+    .btn-primary:hover { background: var(--espresso-dk); }
+    .btn-sand { background: var(--sand); color: var(--espresso); }
+    .btn-sand:hover { background: var(--sand-light); }
+    .btn-sm { padding: 0.65rem 1.4rem; font-size: 0.75rem; }
+
+    /* ─── Arrow icon ─── */
+    .arrow {
+      display: inline-block;
+      font-style: normal;
+      font-size: 1em;
+      transition: transform 0.2s;
+    }
+    .btn:hover .arrow { transform: translateX(3px); }
+
+    /* ─── Sticky header ─── */
+    .fungy-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(242, 238, 232, 0.88);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--sand-light);
+    }
+    .fungy-header__inner {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 1rem;
+      padding-bottom: 1rem;
+    }
+    .fungy-logo {
+      font-size: 1.125rem;
+      font-weight: 800;
+      color: var(--espresso);
+      letter-spacing: -0.03em;
+      text-decoration: none;
+    }
+    .fungy-logo span {
+      font-size: 0.7rem;
+      font-weight: 500;
+      color: var(--mist);
+      margin-left: 0.4rem;
+    }
+
+    /* ─── Hero ─── */
+    .hero {
+      background: var(--canvas);
+      padding: clamp(4rem, 10vw, 7rem) 0 clamp(4rem, 8vw, 6rem);
+      position: relative;
+      overflow: hidden;
+    }
+    .hero__glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .hero__glow-1 {
+      width: 500px; height: 500px;
+      background: rgba(201, 170, 143, 0.18);
+      filter: blur(100px);
+      top: -80px; left: -100px;
+    }
+    .hero__glow-2 {
+      width: 380px; height: 380px;
+      background: rgba(92, 61, 42, 0.07);
+      filter: blur(100px);
+      bottom: -60px; right: -60px;
+    }
+    .hero__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border: 1px solid var(--sand-light);
+      border-radius: var(--radius-full);
+      padding: 0.45rem 1rem;
+      color: var(--mist);
+      margin-bottom: 2.5rem;
+    }
+    .hero__dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: var(--sage);
+      flex-shrink: 0;
+    }
+    .hero__headline { color: var(--ink); margin-bottom: 1.25rem; }
+    .hero__headline em { color: var(--espresso); font-style: normal; }
+    .hero__sub {
+      font-size: clamp(1rem, 2vw, 1.2rem);
+      color: var(--mist);
+      line-height: 1.65;
+      max-width: 640px;
+      margin: 0 auto 3rem;
+    }
+    .hero__ctas {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1rem;
+      justify-content: center;
+      align-items: center;
+      margin-bottom: 4rem;
+    }
+    .hero__stars {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.8125rem;
+      color: var(--mist);
+    }
+    .stars { display: flex; gap: 2px; }
+    .star { color: var(--sand); font-size: 0.75rem; }
+    .hero__stats {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 2.5rem;
+      justify-content: center;
+      border-top: 1px solid var(--sand-light);
+      padding-top: 3rem;
+    }
+    .hero__stat-value {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--espresso);
+      letter-spacing: -0.03em;
+      display: block;
+    }
+    .hero__stat-label {
+      font-size: 0.65rem;
+      color: var(--mist);
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      display: block;
+      margin-top: 2px;
+    }
+
+    /* ─── Reason sections ─── */
+    .reason {
+      padding: clamp(4rem, 8vw, 7rem) 0;
+    }
+    .reason__grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: clamp(3rem, 6vw, 6rem);
+      align-items: center;
+    }
+    @media (max-width: 768px) {
+      .reason__grid { grid-template-columns: 1fr; }
+      .reason__grid--reverse .reason__text { order: 1; }
+      .reason__grid--reverse .reason__visual { order: 2; }
+    }
+    .reason__grid--reverse .reason__text { order: 2; }
+    .reason__grid--reverse .reason__visual { order: 1; }
+
+    .reason__eyebrow-wrap {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+    }
+    .reason__num {
+      font-family: monospace;
+      font-size: 0.7rem;
+      color: var(--sand);
+    }
+    .reason__headline { color: var(--ink); margin-bottom: 0.9rem; }
+    .reason__subhead {
+      font-size: clamp(0.95rem, 1.5vw, 1.1rem);
+      font-weight: 600;
+      color: var(--mist);
+      line-height: 1.45;
+      margin-bottom: 1.25rem;
+    }
+    .reason__body {
+      font-size: clamp(0.875rem, 1.2vw, 1rem);
+      color: var(--mist);
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .reason__highlights { list-style: none; display: flex; flex-direction: column; gap: 0.6rem; margin-bottom: 2rem; }
+    .reason__highlight {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      font-size: 0.875rem;
+      font-weight: 600;
+      color: var(--ink);
+    }
+    .check {
+      width: 18px; height: 18px;
+      border-radius: 50%;
+      background: rgba(78, 122, 92, 0.12);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.65rem;
+      color: var(--sage);
+      flex-shrink: 0;
+    }
+    .reason__proof {
+      display: inline-flex;
+      align-items: flex-start;
+      gap: 0.6rem;
+      background: #fff;
+      border: 1px solid var(--sand-light);
+      border-radius: var(--radius-lg);
+      padding: 0.75rem 1rem;
+      font-size: 0.75rem;
+      color: var(--mist);
+      line-height: 1.5;
+    }
+    .reason__proof-dot { color: var(--sage); flex-shrink: 0; margin-top: 1px; }
+
+    /* Visual column */
+    .reason__visual {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 2rem;
+    }
+    .reason__icon-wrap {
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .reason__bg-num {
+      font-size: clamp(8rem, 18vw, 14rem);
+      font-weight: 900;
+      line-height: 1;
+      user-select: none;
+      pointer-events: none;
+    }
+    .reason__icon {
+      position: absolute;
+      width: clamp(6rem, 12vw, 9rem);
+      height: clamp(6rem, 12vw, 9rem);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: clamp(2.5rem, 5vw, 4rem);
+    }
+    .reason__stat-block { text-align: center; }
+    .reason__stat-value {
+      font-size: clamp(2.5rem, 6vw, 4rem);
+      font-weight: 900;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      display: block;
+    }
+    .reason__stat-label {
+      font-size: 0.65rem;
+      color: var(--mist);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      margin-top: 0.4rem;
+      display: block;
+    }
+    .reason__badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      border-radius: var(--radius-full);
+      padding: 0.45rem 1.1rem;
+      font-size: 0.7rem;
+      font-weight: 700;
+      letter-spacing: 0.06em;
+    }
+    .reason__badge-dot { width: 6px; height: 6px; border-radius: 50%; flex-shrink: 0; }
+
+    /* ─── Mid-page CTA ─── */
+    .mid-cta {
+      background: var(--espresso);
+      padding: clamp(3rem, 6vw, 5rem) 0;
+      text-align: center;
+    }
+    .mid-cta__eyebrow { color: var(--sand); margin-bottom: 1rem; }
+    .mid-cta__headline { color: #fff; margin-bottom: 1rem; }
+    .mid-cta__sub {
+      font-size: 1rem;
+      color: var(--sand);
+      max-width: 480px;
+      margin: 0 auto 2rem;
+      line-height: 1.6;
+    }
+
+    /* ─── Testimonials ─── */
+    .testimonials {
+      background: var(--surface-warm);
+      padding: clamp(4rem, 8vw, 6rem) 0;
+    }
+    .testimonials__eyebrow { color: var(--sage); margin-bottom: 0.75rem; }
+    .testimonials__headline { color: var(--ink); margin-bottom: 3rem; }
+    .testimonials__grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1.5rem;
+    }
+    @media (max-width: 900px) { .testimonials__grid { grid-template-columns: 1fr; } }
+    @media (min-width: 600px) and (max-width: 900px) { .testimonials__grid { grid-template-columns: 1fr 1fr; } }
+
+    .testimonial-card {
+      background: #fff;
+      border: 1px solid rgba(224, 205, 184, 0.6);
+      border-radius: var(--radius-xl);
+      padding: 1.75rem;
+    }
+    .testimonial-card__stars { margin-bottom: 1rem; }
+    .testimonial-card__text {
+      font-size: 0.875rem;
+      color: var(--ink);
+      line-height: 1.7;
+      margin-bottom: 1.5rem;
+    }
+    .testimonial-card__author { display: flex; align-items: center; gap: 0.75rem; }
+    .testimonial-card__avatar {
+      width: 36px; height: 36px;
+      border-radius: 50%;
+      background: rgba(92, 61, 42, 0.1);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.7rem;
+      font-weight: 800;
+      color: var(--espresso);
+      flex-shrink: 0;
+    }
+    .testimonial-card__name { font-size: 0.875rem; font-weight: 700; color: var(--ink); }
+    .testimonial-card__role { font-size: 0.75rem; color: var(--mist); margin-top: 1px; }
+
+    /* ─── Final CTA ─── */
+    .final-cta {
+      background: var(--espresso);
+      padding: clamp(5rem, 10vw, 9rem) 0;
+      position: relative;
+      overflow: hidden;
+    }
+    .final-cta__glow {
+      position: absolute;
+      border-radius: 50%;
+      pointer-events: none;
+    }
+    .final-cta__glow-1 {
+      width: 600px; height: 600px;
+      background: rgba(74, 48, 32, 0.6);
+      filter: blur(100px);
+      top: -200px; left: 20%;
+    }
+    .final-cta__glow-2 {
+      width: 400px; height: 400px;
+      background: rgba(0,0,0,0.2);
+      filter: blur(80px);
+      bottom: -100px; right: 20%;
+    }
+    .final-cta__dot-grid {
+      position: absolute;
+      inset: 0;
+      opacity: 0.025;
+      background-image: radial-gradient(circle at 1px 1px, #C9AA8F 1px, transparent 0);
+      background-size: 40px 40px;
+    }
+    .final-cta__inner { position: relative; z-index: 1; text-align: center; }
+    .final-cta__eyebrow { color: var(--sand); margin-bottom: 2rem; }
+    .final-cta__headline { color: #fff; margin-bottom: 1.25rem; }
+    .final-cta__headline em { color: var(--sand); font-style: normal; }
+    .final-cta__sub {
+      font-size: clamp(1rem, 2vw, 1.15rem);
+      color: var(--sand);
+      max-width: 520px;
+      margin: 0 auto 2.5rem;
+      line-height: 1.65;
+    }
+    .final-cta__trust {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1.5rem;
+      justify-content: center;
+      margin-top: 2.5rem;
+    }
+    .final-cta__trust-item {
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+      font-size: 0.75rem;
+      color: rgba(201, 170, 143, 0.55);
+    }
+    .final-cta__trust-check { font-size: 0.65rem; }
+
+    /* ─── Footer note ─── */
+    .fungy-footer {
+      background: var(--espresso-dk);
+      padding: 1.5rem;
+      text-align: center;
+      font-size: 0.7rem;
+      color: rgba(201, 170, 143, 0.4);
+    }
+
+    /* ─── Scroll-in animations ─── */
+    .reveal {
+      opacity: 0;
+      transform: translateY(32px);
+      transition: opacity 0.65s var(--transition), transform 0.65s var(--transition);
+    }
+    .reveal.from-left { transform: translateX(-40px); }
+    .reveal.from-right { transform: translateX(40px); }
+    .reveal.visible {
+      opacity: 1;
+      transform: translate(0, 0);
+    }
+    .reveal-delay-1 { transition-delay: 0.1s; }
+    .reveal-delay-2 { transition-delay: 0.2s; }
+    .reveal-delay-3 { transition-delay: 0.35s; }
+  </style>
+</head>
+
+<body>
+
+<!-- ══════════════════════ STICKY HEADER ══════════════════════ -->
+<header class="fungy-header">
+  <div class="fungy-header__inner container px">
+    <a href="/" class="fungy-logo">fungy <span>· mushroom superfood</span></a>
+    <a href="/products/fungy-mushroom-blend" class="btn btn-primary btn-sm">
+      Try Fungy — 15% Off <span class="arrow">→</span>
+    </a>
+  </div>
+</header>
+
+<!-- ══════════════════════ HERO ══════════════════════ -->
+<section class="hero px">
+  <div class="hero__glow hero__glow-1"></div>
+  <div class="hero__glow hero__glow-2"></div>
+
+  <div class="container-sm text-center" style="position:relative;z-index:1;">
+    <div class="reveal">
+      <div class="hero__badge eyebrow">
+        <span class="hero__dot"></span>
+        The Case for Fungy
+      </div>
+    </div>
+
+    <h1 class="display-xl hero__headline reveal reveal-delay-1">
+      8 Reasons You'll Never Go Back to
+      <em> Regular Coffee</em>
+    </h1>
+
+    <p class="hero__sub reveal reveal-delay-2">
+      50,000+ people discovered what happens when six functional superfoods replace
+      their morning ritual. This is what they found.
+    </p>
+
+    <div class="hero__ctas reveal reveal-delay-3">
+      <a href="/products/fungy-mushroom-blend" class="btn btn-primary">
+        Start Your Ritual — 15% Off <span class="arrow">→</span>
+      </a>
+      <div class="hero__stars">
+        <div class="stars">
+          <span class="star">★</span><span class="star">★</span>
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        4.9 / 5 · 12,000+ reviews
+      </div>
+    </div>
+
+    <div class="hero__stats reveal">
+      <div>
+        <span class="hero__stat-value">50k+</span>
+        <span class="hero__stat-label">Customers worldwide</span>
+      </div>
+      <div>
+        <span class="hero__stat-value">6</span>
+        <span class="hero__stat-label">Functional mushrooms</span>
+      </div>
+      <div>
+        <span class="hero__stat-value">0g</span>
+        <span class="hero__stat-label">Added sugar</span>
+      </div>
+      <div>
+        <span class="hero__stat-value">30-day</span>
+        <span class="hero__stat-label">Money-back guarantee</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 01 ══════════════════════ -->
+<section class="reason px" style="background:#F2EEE8;">
+  <div class="reason__grid container">
+    <div class="reason__text reveal from-left">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#5C3D2A;">Clean Energy</span>
+        <span class="reason__num">/ 01</span>
+      </div>
+      <h2 class="display-md reason__headline">The crash is stealing hours from your life.</h2>
+      <p class="reason__subhead">Every coffee spike is followed by a valley. Fungy gives you the mountain without the drop.</p>
+      <p class="reason__body">Cordyceps mushroom boosts ATP production at the cellular level — your body's actual energy currency. Not a stimulant hit. Not borrowed energy. Real, metabolic fuel that sustains for hours. 50,000+ Fungy drinkers report no 2pm slump. No second coffee needed. Just steady, clean output from morning to evening.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> No caffeine crash</li>
+        <li class="reason__highlight"><span class="check">✓</span> Steady energy all day</li>
+        <li class="reason__highlight"><span class="check">✓</span> Zero jitters</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Cordyceps shown to increase oxygen utilization and aerobic capacity in clinical studies
+      </div>
+    </div>
+    <div class="reason__visual reveal from-right">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(92,61,42,0.06);">01</span>
+        <div class="reason__icon" style="background:rgba(92,61,42,0.08);border:2px solid rgba(92,61,42,0.12);">⚡</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#5C3D2A;">8hrs</span>
+        <span class="reason__stat-label">Sustained clean energy</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(92,61,42,0.08);color:#5C3D2A;border:1px solid rgba(92,61,42,0.15);">
+        <span class="reason__badge-dot" style="background:#5C3D2A;"></span>
+        Cordyceps
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 02 ══════════════════════ -->
+<section class="reason px" style="background:#EDE9E2;">
+  <div class="reason__grid reason__grid--reverse container">
+    <div class="reason__text reveal from-right">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#4E7A5C;">Mental Performance</span>
+        <span class="reason__num">/ 02</span>
+      </div>
+      <h2 class="display-md reason__headline">Your brain has been running on fumes for years.</h2>
+      <p class="reason__subhead">Lion's Mane doesn't mask mental fatigue. It eliminates the reason for it.</p>
+      <p class="reason__body">Lion's Mane is the only natural compound clinically shown to stimulate Nerve Growth Factor (NGF) — the protein your brain needs to build new neural connections, repair damaged ones, and operate at full capacity. Better memory retention. Faster problem-solving. Deep focus that doesn't require willpower to maintain.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Sharper memory & recall</li>
+        <li class="reason__highlight"><span class="check">✓</span> Deeper, longer focus</li>
+        <li class="reason__highlight"><span class="check">✓</span> Faster cognitive processing</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Lion's Mane shown to significantly increase NGF synthesis in 4-week peer-reviewed studies
+      </div>
+    </div>
+    <div class="reason__visual reveal from-left">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(78,122,92,0.07);">02</span>
+        <div class="reason__icon" style="background:rgba(78,122,92,0.1);border:2px solid rgba(78,122,92,0.15);">🧠</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#4E7A5C;">4 wks</span>
+        <span class="reason__stat-label">To measurable cognitive lift</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(78,122,92,0.08);color:#4E7A5C;border:1px solid rgba(78,122,92,0.15);">
+        <span class="reason__badge-dot" style="background:#4E7A5C;"></span>
+        Lion's Mane
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 03 ══════════════════════ -->
+<section class="reason px" style="background:#F2EEE8;">
+  <div class="reason__grid container">
+    <div class="reason__text reveal from-left">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#8B5E3C;">Stress Resilience</span>
+        <span class="reason__num">/ 03</span>
+      </div>
+      <h2 class="display-md reason__headline">Stress is quietly destroying everything you've built.</h2>
+      <p class="reason__subhead">Not dramatically. Silently. One elevated cortisol moment at a time.</p>
+      <p class="reason__body">Chronic stress doesn't announce itself with a crisis — it erodes your sleep quality over months, tanks your immune response, and makes you reactive instead of strategic in every room you walk into. Reishi is a certified adaptogen. It doesn't sedate you. It trains your nervous system to respond to pressure with precision instead of panic.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Lower cortisol levels</li>
+        <li class="reason__highlight"><span class="check">✓</span> Better sleep quality</li>
+        <li class="reason__highlight"><span class="check">✓</span> Calm and strategic under pressure</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Reishi shown to modulate cortisol response and improve HRV in clinical trials
+      </div>
+    </div>
+    <div class="reason__visual reveal from-right">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(139,94,60,0.07);">03</span>
+        <div class="reason__icon" style="background:rgba(139,94,60,0.09);border:2px solid rgba(139,94,60,0.14);">🌿</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#8B5E3C;">23%</span>
+        <span class="reason__stat-label">Cortisol reduction reported</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(139,94,60,0.08);color:#8B5E3C;border:1px solid rgba(139,94,60,0.15);">
+        <span class="reason__badge-dot" style="background:#8B5E3C;"></span>
+        Reishi
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 04 ══════════════════════ -->
+<section class="reason px" style="background:#EDE9E2;">
+  <div class="reason__grid reason__grid--reverse container">
+    <div class="reason__text reveal from-right">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#4E7A5C;">Gut Health</span>
+        <span class="reason__num">/ 04</span>
+      </div>
+      <h2 class="display-md reason__headline">Most high-performers don't know their gut is broken.</h2>
+      <p class="reason__subhead">The bloating, the brain fog, the afternoon slump — it's not your schedule. It's your gut.</p>
+      <p class="reason__body">70% of your immune system lives in your gut. When your microbiome is compromised, every system downstream suffers — cognitive function, energy metabolism, mood regulation. Turkey Tail's prebiotic polysaccharides don't soothe symptoms. They restructure your internal ecosystem at the root, feeding beneficial bacteria and crowding out the rest.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Less bloating & discomfort</li>
+        <li class="reason__highlight"><span class="check">✓</span> Better daily digestion</li>
+        <li class="reason__highlight"><span class="check">✓</span> Stronger immune foundation</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Turkey Tail's PSK and PSP compounds shown to support microbiome diversity in clinical research
+      </div>
+    </div>
+    <div class="reason__visual reveal from-left">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(78,122,92,0.07);">04</span>
+        <div class="reason__icon" style="background:rgba(78,122,92,0.1);border:2px solid rgba(78,122,92,0.15);">🍄</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#4E7A5C;">70%</span>
+        <span class="reason__stat-label">Of immunity lives in your gut</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(78,122,92,0.08);color:#4E7A5C;border:1px solid rgba(78,122,92,0.15);">
+        <span class="reason__badge-dot" style="background:#4E7A5C;"></span>
+        Turkey Tail
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ MID-PAGE CTA ══════════════════════ -->
+<section class="mid-cta px">
+  <div class="container-sm reveal">
+    <div class="eyebrow mid-cta__eyebrow">Ready to start?</div>
+    <h2 class="display-md mid-cta__headline">You've seen 4 reasons. There are 4 more.</h2>
+    <p class="mid-cta__sub">Or you can start now and feel the difference in 7 days. 30-day money-back guarantee — no questions asked.</p>
+    <a href="/products/fungy-mushroom-blend" class="btn btn-sand">
+      Try Fungy — 15% Off First Order <span class="arrow">→</span>
+    </a>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 05 ══════════════════════ -->
+<section class="reason px" style="background:#F2EEE8;">
+  <div class="reason__grid container">
+    <div class="reason__text reveal from-left">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#7A5C3A;">Immune Defense</span>
+        <span class="reason__num">/ 05</span>
+      </div>
+      <h2 class="display-md reason__headline">Your immune system needs more than hope.</h2>
+      <p class="reason__subhead">Chaga doesn't wait for the threat to arrive. It builds your defenses daily.</p>
+      <p class="reason__body">Chaga has the highest ORAC antioxidant score of any natural food on earth — higher than blueberries, green tea, or anything in a supplement store. Its beta-glucans activate your Natural Killer cells proactively. That's the difference between scrambling to recover and never getting knocked down in the first place.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Daily immune activation</li>
+        <li class="reason__highlight"><span class="check">✓</span> Proactive protection</li>
+        <li class="reason__highlight"><span class="check">✓</span> Powerful anti-inflammatory</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Chaga contains the highest antioxidant ORAC value of any measured natural food source
+      </div>
+    </div>
+    <div class="reason__visual reveal from-right">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(122,92,58,0.07);">05</span>
+        <div class="reason__icon" style="background:rgba(122,92,58,0.09);border:2px solid rgba(122,92,58,0.14);">🛡️</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#7A5C3A;">25×</span>
+        <span class="reason__stat-label">More antioxidants than blueberries</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(122,92,58,0.08);color:#7A5C3A;border:1px solid rgba(122,92,58,0.15);">
+        <span class="reason__badge-dot" style="background:#7A5C3A;"></span>
+        Chaga
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 06 ══════════════════════ -->
+<section class="reason px" style="background:#EDE9E2;">
+  <div class="reason__grid reason__grid--reverse container">
+    <div class="reason__text reveal from-right">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#5C3D2A;">Clean Formula</span>
+        <span class="reason__num">/ 06</span>
+      </div>
+      <h2 class="display-md reason__headline">Everything else is full of things you can't pronounce.</h2>
+      <p class="reason__subhead">The supplement industry's dirtiest secret: most products are 70% filler.</p>
+      <p class="reason__body">Artificial flavors. Seed oils. Proprietary blends hiding underdosed actives. Mystery sweeteners that spike your insulin. The wellness industry profits from your confusion. Fungy's formula is 8 ingredients: 6 functional mushrooms, organic coffee, organic MCT oil, organic coconut milk. Every ingredient earns its place. Zero compromises.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Zero artificial flavors</li>
+        <li class="reason__highlight"><span class="check">✓</span> No fillers or seed oils</li>
+        <li class="reason__highlight"><span class="check">✓</span> Lab tested & certified clean</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Third-party lab tested. Zero artificial additives. Published certificates of analysis available.
+      </div>
+    </div>
+    <div class="reason__visual reveal from-left">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(92,61,42,0.06);">06</span>
+        <div class="reason__icon" style="background:rgba(92,61,42,0.08);border:2px solid rgba(92,61,42,0.12);">✅</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#5C3D2A;">8</span>
+        <span class="reason__stat-label">Ingredients. Nothing hidden.</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(92,61,42,0.08);color:#5C3D2A;border:1px solid rgba(92,61,42,0.15);">
+        <span class="reason__badge-dot" style="background:#5C3D2A;"></span>
+        The Full Blend
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 07 ══════════════════════ -->
+<section class="reason px" style="background:#F2EEE8;">
+  <div class="reason__grid container">
+    <div class="reason__text reveal from-left">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#4E7A5C;">Daily Ritual</span>
+        <span class="reason__num">/ 07</span>
+      </div>
+      <h2 class="display-md reason__headline">One cup. The morning ritual that compounds over time.</h2>
+      <p class="reason__subhead">High performers don't have willpower. They have systems. This is yours.</p>
+      <p class="reason__body">Every person you admire — the founder running a 9-figure company, the athlete who trains before sunrise, the creative who produces breathtaking work — they all share one thing: a non-negotiable morning ritual. Fungy is yours. One cup delivers six functional superfoods to every cell in your body before the world asks anything of you. A habit this simple shouldn't change this much. But it does.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> Takes just 2 minutes</li>
+        <li class="reason__highlight"><span class="check">✓</span> Replaces coffee entirely</li>
+        <li class="reason__highlight"><span class="check">✓</span> Compounds over months</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        Used daily by founders, athletes, and top performers in 40+ countries worldwide
+      </div>
+    </div>
+    <div class="reason__visual reveal from-right">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(78,122,92,0.07);">07</span>
+        <div class="reason__icon" style="background:rgba(78,122,92,0.1);border:2px solid rgba(78,122,92,0.15);">☀️</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#4E7A5C;">30 days</span>
+        <span class="reason__stat-label">To feel completely transformed</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(78,122,92,0.08);color:#4E7A5C;border:1px solid rgba(78,122,92,0.15);">
+        <span class="reason__badge-dot" style="background:#4E7A5C;"></span>
+        The Full Blend
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ REASON 08 ══════════════════════ -->
+<section class="reason px" style="background:#EDE9E2;">
+  <div class="reason__grid reason__grid--reverse container">
+    <div class="reason__text reveal from-right">
+      <div class="reason__eyebrow-wrap">
+        <span class="eyebrow" style="color:#5C3D2A;">Proven Results</span>
+        <span class="reason__num">/ 08</span>
+      </div>
+      <h2 class="display-md reason__headline">50,000 people already switched. They all say the same thing.</h2>
+      <p class="reason__subhead">"I wish I started sooner." — Every Fungy customer, ever.</p>
+      <p class="reason__body">When 50,000 people from 40 different countries voluntarily replace their morning coffee with something new, that's not a trend. That's a verdict. Entrepreneurs who needed their edge back. Athletes optimizing every variable. Parents who needed to be present. Creatives who needed their spark. All of them found it in one cup. The only question is how long you wait.</p>
+      <ul class="reason__highlights">
+        <li class="reason__highlight"><span class="check">✓</span> 50,000+ active customers</li>
+        <li class="reason__highlight"><span class="check">✓</span> Ships to 40+ countries</li>
+        <li class="reason__highlight"><span class="check">✓</span> 4.9 / 5 average rating</li>
+      </ul>
+      <div class="reason__proof">
+        <span class="reason__proof-dot">◆</span>
+        4.9/5 stars from 12,000+ verified reviews across all platforms
+      </div>
+    </div>
+    <div class="reason__visual reveal from-left">
+      <div class="reason__icon-wrap">
+        <span class="reason__bg-num" style="color:rgba(92,61,42,0.06);">08</span>
+        <div class="reason__icon" style="background:rgba(92,61,42,0.08);border:2px solid rgba(92,61,42,0.12);">🌍</div>
+      </div>
+      <div class="reason__stat-block">
+        <span class="reason__stat-value" style="color:#5C3D2A;">4.9★</span>
+        <span class="reason__stat-label">From 12,000+ verified reviews</span>
+      </div>
+      <div class="reason__badge" style="background:rgba(92,61,42,0.08);color:#5C3D2A;border:1px solid rgba(92,61,42,0.15);">
+        <span class="reason__badge-dot" style="background:#5C3D2A;"></span>
+        The Community
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ TESTIMONIALS ══════════════════════ -->
+<section class="testimonials px">
+  <div class="container text-center">
+    <div class="eyebrow testimonials__eyebrow reveal">Real Results</div>
+    <h2 class="display-md testimonials__headline reveal">Don't take our word for it.</h2>
+    <div class="testimonials__grid">
+
+      <div class="testimonial-card reveal">
+        <div class="testimonial-card__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testimonial-card__text">"The first week I noticed my 2pm crash was completely gone. By week three I cancelled my afternoon coffee subscription. I haven't looked back once."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">EV</div>
+          <div>
+            <div class="testimonial-card__name">Emma V.</div>
+            <div class="testimonial-card__role">Entrepreneur</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-1">
+        <div class="testimonial-card__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testimonial-card__text">"I was deeply skeptical about 'functional mushrooms'. But when my team started asking why I was suddenly so sharp in morning meetings, I stopped being skeptical."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">LD</div>
+          <div>
+            <div class="testimonial-card__name">Luca D.</div>
+            <div class="testimonial-card__role">Creative Director</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="testimonial-card reveal reveal-delay-2">
+        <div class="testimonial-card__stars">
+          <span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span><span class="star">★</span>
+        </div>
+        <p class="testimonial-card__text">"My athletes notice when I give them something that works. Cordyceps is real. The performance uplift is measurable. I recommend Fungy to every client I have."</p>
+        <div class="testimonial-card__author">
+          <div class="testimonial-card__avatar">JM</div>
+          <div>
+            <div class="testimonial-card__name">James M.</div>
+            <div class="testimonial-card__role">Personal Trainer</div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FINAL CTA ══════════════════════ -->
+<section class="final-cta px">
+  <div class="final-cta__glow final-cta__glow-1"></div>
+  <div class="final-cta__glow final-cta__glow-2"></div>
+  <div class="final-cta__dot-grid"></div>
+
+  <div class="final-cta__inner container-sm reveal">
+    <div class="eyebrow final-cta__eyebrow">Your Move</div>
+    <h2 class="display-xl final-cta__headline">
+      You've read 8 reasons.<br>
+      <em>Now feel 8 results.</em>
+    </h2>
+    <p class="final-cta__sub">
+      Join 50,000+ high-performers who made the switch.
+      15% off your first order. Free shipping. 30-day guarantee.
+    </p>
+    <a href="/products/fungy-mushroom-blend" class="btn btn-sand" style="font-size:0.9rem;padding:1.2rem 3rem;">
+      Start Your Ritual Today <span class="arrow">→</span>
+    </a>
+    <div class="final-cta__trust">
+      <span class="final-cta__trust-item"><span class="final-cta__trust-check">✓</span> Free shipping over €35</span>
+      <span class="final-cta__trust-item"><span class="final-cta__trust-check">✓</span> 30-day money-back guarantee</span>
+      <span class="final-cta__trust-item"><span class="final-cta__trust-check">✓</span> No subscription required</span>
+    </div>
+  </div>
+</section>
+
+
+<!-- ══════════════════════ FOOTER ══════════════════════ -->
+<footer class="fungy-footer">
+  © 2025 Fungy · Free shipping on orders over €35 · 30-day money-back guarantee
+</footer>
+
+
+<!-- ══════════════════════ SCROLL ANIMATIONS ══════════════════════ -->
+<script>
+  (function () {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          entry.target.classList.add('visible');
+          observer.unobserve(entry.target);
+        }
+      });
+    }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+
+    document.querySelectorAll('.reveal').forEach(function (el) {
+      observer.observe(el);
+    });
+  })();
+</script>
+
+</body>
+</html>
