@@ -1,0 +1,75 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --background: #F2EEE8;
+  --foreground: #1A1A1A;
+  --color-canvas: #F2EEE8;
+  --color-surface: #ffffff;
+  --color-surface-warm: #EDE9E2;
+  --color-espresso: #5C3D2A;
+  --color-espresso-dark: #4A3020;
+  --color-sand: #C9AA8F;
+  --color-sand-light: #E0CDB8;
+  --color-ink: #1A1A1A;
+  --color-mist: #7A6E65;
+  --color-sage: #4E7A5C;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: auto;
+}
+
+body {
+  color: var(--foreground);
+  background: var(--background);
+  font-family: var(--font-inter), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: hidden;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+
+  .text-pretty {
+    text-wrap: pretty;
+  }
+
+  .glow-espresso {
+    box-shadow: 0 0 40px rgba(92, 61, 42, 0.15), 0 4px 24px rgba(92, 61, 42, 0.1);
+  }
+
+  .glow-sand {
+    box-shadow: 0 0 60px rgba(201, 170, 143, 0.2), 0 4px 24px rgba(201, 170, 143, 0.1);
+  }
+}
+
+@layer components {
+  .section-padding {
+    @apply px-6 md:px-12 lg:px-20;
+  }
+
+  .btn-primary {
+    @apply bg-espresso text-canvas px-8 py-4 rounded-full font-medium text-sm tracking-wide
+           hover:bg-espresso-dark transition-all duration-300 ease-apple
+           active:scale-95;
+  }
+
+  .btn-secondary {
+    @apply bg-transparent text-espresso border border-espresso px-8 py-4 rounded-full
+           font-medium text-sm tracking-wide hover:bg-espresso hover:text-canvas
+           transition-all duration-300 ease-apple active:scale-95;
+  }
+
+  .glass-warm {
+    @apply bg-canvas/85 backdrop-blur-xl border-b border-sand-light;
+  }
+}
