@@ -1,0 +1,862 @@
+{% comment %} FÜNGY Mushroom Coffee — Full Homepage Section {% endcomment %}
+
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+<div class="fg-page">
+
+<style>
+/* ============================================================
+   FÜNGY HOMEPAGE — BASE
+   ============================================================ */
+.fg-page, .fg-page * { box-sizing: border-box; }
+.fg-page {
+  font-family: 'Inter', sans-serif;
+  color: #3d2314;
+  background: #f5efe8;
+  overflow-x: hidden;
+}
+.fg-page a { text-decoration: none; }
+.fg-page img { display: block; max-width: 100%; }
+.fg-page h1, .fg-page h2, .fg-page h3 { margin: 0; }
+.fg-page p { margin: 0; }
+
+.fg-label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: #9c6f4a;
+  margin-bottom: 10px;
+}
+
+.fg-btn {
+  display: inline-block;
+  background: #9c6f4a;
+  color: #f5efe8;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  padding: 16px 36px;
+  border-radius: 6px;
+  transition: background 0.2s;
+  cursor: pointer;
+}
+.fg-btn:hover { background: #5C3D2A; color: #f5efe8; }
+
+.fg-btn--dark {
+  background: #5C3D2A;
+}
+.fg-btn--dark:hover { background: #3d2314; }
+
+.fg-guarantee {
+  font-size: 12px;
+  color: #9c6f4a;
+  margin-top: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+
+/* ============================================================
+   1. ANNOUNCEMENT BAR
+   ============================================================ */
+.fg-bar {
+  background: #5C3D2A;
+  text-align: center;
+  padding: 11px 20px;
+}
+.fg-bar p {
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 300;
+  letter-spacing: 0.1em;
+  color: #f5efe8;
+}
+.fg-bar strong { font-weight: 600; }
+
+/* ============================================================
+   2. HERO
+   ============================================================ */
+.fg-hero {
+  background: #f5efe8;
+  display: flex;
+  align-items: center;
+  min-height: 580px;
+  padding: 60px 6% 0;
+  overflow: hidden;
+}
+.fg-hero__left {
+  flex: 0 0 42%;
+  padding-right: 40px;
+  z-index: 2;
+}
+.fg-hero__eyebrow {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: #3d2314;
+  margin-bottom: 12px;
+}
+.fg-hero__eyebrow span { color: #9c6f4a; }
+.fg-hero__headline {
+  font-family: 'Poppins', sans-serif;
+  font-size: 42px;
+  font-weight: 700;
+  color: #3d2314;
+  line-height: 1.1;
+  margin-bottom: 14px;
+}
+.fg-hero__offer {
+  font-family: 'Poppins', sans-serif;
+  font-size: 22px;
+  font-weight: 600;
+  color: #9c6f4a;
+  line-height: 1.35;
+  margin-bottom: 22px;
+}
+.fg-hero__stars {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin-bottom: 26px;
+}
+.fg-hero__stars .fg-stars { font-size: 18px; color: #9c6f4a; }
+.fg-hero__stars p { font-size: 13px; color: #5C3D2A; font-weight: 500; }
+.fg-hero__right {
+  flex: 1;
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+}
+.fg-hero__img {
+  width: 100%;
+  max-width: 580px;
+  height: 460px;
+  object-fit: contain;
+}
+
+/* ============================================================
+   3. SCROLLING TICKER
+   ============================================================ */
+.fg-ticker {
+  background: #9c6f4a;
+  padding: 14px 0;
+  overflow: hidden;
+}
+.fg-ticker__track {
+  display: flex;
+  white-space: nowrap;
+  animation: fg-scroll 24s linear infinite;
+}
+.fg-ticker__item {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 36px;
+  font-family: 'Poppins', sans-serif;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #f5efe8;
+  flex-shrink: 0;
+}
+.fg-ticker__dot {
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(242,238,232,0.5);
+  display: inline-block;
+}
+@keyframes fg-scroll {
+  0%   { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+
+/* ============================================================
+   4. FEATURE SPLIT
+   ============================================================ */
+.fg-feature {
+  background: #f5efe8;
+  padding: 90px 6%;
+  display: flex;
+  align-items: center;
+  gap: 70px;
+}
+.fg-feature__left {
+  flex: 0 0 46%;
+  position: relative;
+}
+.fg-feature__img {
+  width: 100%;
+  height: 460px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #ede4da;
+}
+.fg-feature__note {
+  position: absolute;
+  background: rgba(61,35,20,0.88);
+  color: #f5efe8;
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 500;
+  padding: 7px 14px;
+  border-radius: 20px;
+  white-space: nowrap;
+  pointer-events: none;
+}
+.fg-feature__note--tl { top: 18%; left: -8%; }
+.fg-feature__note--tr { top: 38%; right: -10%; }
+.fg-feature__note--bl { bottom: 22%; left: -6%; }
+
+.fg-feature__right { flex: 1; }
+.fg-feature__tags {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  color: #9c6f4a;
+  margin-bottom: 12px;
+}
+.fg-feature__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 36px;
+  font-weight: 700;
+  color: #3d2314;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.fg-feature__title span { color: #9c6f4a; }
+.fg-feature__body {
+  font-size: 14px;
+  color: #5C3D2A;
+  line-height: 1.75;
+  margin-bottom: 26px;
+}
+.fg-info-cards {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 26px;
+}
+.fg-info-card {
+  background: #ede4da;
+  border-radius: 10px;
+  padding: 18px;
+}
+.fg-info-card__label {
+  font-family: 'Poppins', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #9c6f4a;
+  margin-bottom: 10px;
+}
+.fg-info-card__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 7px;
+  font-size: 13px;
+  color: #3d2314;
+  margin-bottom: 6px;
+  line-height: 1.4;
+}
+.fg-info-card__item::before {
+  content: "✓";
+  color: #9c6f4a;
+  font-weight: 700;
+  flex-shrink: 0;
+  margin-top: 1px;
+}
+.fg-info-card p {
+  font-size: 13px;
+  color: #5C3D2A;
+  line-height: 1.65;
+}
+.fg-badges {
+  display: flex;
+  gap: 22px;
+  margin-bottom: 28px;
+  flex-wrap: wrap;
+}
+.fg-badge { text-align: center; }
+.fg-badge__icon { font-size: 22px; margin-bottom: 4px; }
+.fg-badge__text {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #5C3D2A;
+  line-height: 1.35;
+}
+
+/* ============================================================
+   5. REVIEWS
+   ============================================================ */
+.fg-reviews {
+  background: #faf6f0;
+  padding: 90px 6%;
+  text-align: center;
+}
+.fg-reviews__heading {
+  font-family: 'Poppins', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #3d2314;
+  margin-bottom: 10px;
+}
+.fg-reviews__heading span { color: #9c6f4a; }
+.fg-reviews__sub {
+  font-size: 14px;
+  color: #5C3D2A;
+  max-width: 500px;
+  margin: 0 auto 14px;
+  line-height: 1.7;
+}
+.fg-reviews__count {
+  font-size: 15px;
+  font-weight: 600;
+  color: #9c6f4a;
+  margin-bottom: 44px;
+}
+.fg-reviews__grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-bottom: 44px;
+  text-align: left;
+}
+.fg-review-card {
+  background: #fff;
+  border-radius: 12px;
+  overflow: hidden;
+  border: 1px solid #e8ddd4;
+}
+.fg-review-card__img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+  background: #ede4da;
+}
+.fg-review-card__body { padding: 20px; }
+.fg-review-card__stars { color: #9c6f4a; font-size: 15px; margin-bottom: 8px; }
+.fg-review-card__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: #9c6f4a;
+  margin-bottom: 10px;
+}
+.fg-review-card__text {
+  font-size: 13px;
+  color: #5C3D2A;
+  line-height: 1.65;
+  margin-bottom: 14px;
+}
+.fg-review-card__name { font-size: 13px; font-weight: 600; color: #3d2314; }
+.fg-review-card__verified { font-size: 11px; color: #9c6f4a; margin-top: 5px; }
+
+/* ============================================================
+   6. INGREDIENTS
+   ============================================================ */
+.fg-ingredients {
+  background: #f5efe8;
+  padding: 90px 6%;
+}
+.fg-ingredients__header {
+  text-align: center;
+  margin-bottom: 50px;
+}
+.fg-ingredients__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #3d2314;
+  line-height: 1.2;
+  margin-bottom: 14px;
+}
+.fg-ingredients__title span { color: #9c6f4a; }
+.fg-ingredients__body {
+  font-size: 14px;
+  color: #5C3D2A;
+  max-width: 580px;
+  margin: 0 auto;
+  line-height: 1.75;
+}
+.fg-ing-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 16px;
+  max-width: 1000px;
+  margin: 0 auto;
+}
+.fg-ing-card {
+  background: #faf6f0;
+  border: 1px solid #d4b89a;
+  border-radius: 10px;
+  overflow: hidden;
+  display: flex;
+  align-items: stretch;
+}
+.fg-ing-card__info {
+  padding: 20px 16px;
+  flex: 1;
+}
+.fg-ing-card__tag {
+  font-family: 'Poppins', sans-serif;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: #9c6f4a;
+  margin-bottom: 4px;
+}
+.fg-ing-card__name {
+  font-family: 'Poppins', sans-serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #3d2314;
+  margin-bottom: 7px;
+}
+.fg-ing-card__desc {
+  font-size: 12.5px;
+  color: #5C3D2A;
+  line-height: 1.55;
+}
+.fg-ing-card__img {
+  width: 110px;
+  height: 110px;
+  object-fit: cover;
+  flex-shrink: 0;
+  align-self: center;
+  background: #ede4da;
+}
+.fg-ing-center {
+  display: flex;
+  justify-content: center;
+  max-width: 1000px;
+  margin: 16px auto 0;
+}
+.fg-ing-center .fg-ing-card {
+  width: calc(33.33% - 6px);
+}
+.fg-ingredients__cta {
+  text-align: center;
+  margin-top: 52px;
+}
+
+/* ============================================================
+   7. ABOUT / FOUNDER
+   ============================================================ */
+.fg-about {
+  background: #faf6f0;
+  padding: 90px 6%;
+}
+.fg-about__header {
+  text-align: center;
+  margin-bottom: 44px;
+}
+.fg-about__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: 38px;
+  font-weight: 700;
+  color: #3d2314;
+}
+.fg-about__title span { color: #9c6f4a; }
+.fg-about__intro {
+  font-size: 14px;
+  color: #5C3D2A;
+  max-width: 540px;
+  margin: 12px auto 0;
+  line-height: 1.75;
+}
+.fg-about__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+  align-items: center;
+}
+.fg-about__img {
+  width: 100%;
+  height: 380px;
+  object-fit: cover;
+  border-radius: 14px;
+  background: #ede4da;
+}
+.fg-about__box {
+  background: #f5efe8;
+  border-radius: 14px;
+  padding: 44px 40px;
+}
+.fg-about__box h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 28px;
+  font-weight: 700;
+  color: #3d2314;
+  margin-bottom: 18px;
+}
+.fg-about__box p {
+  font-size: 14px;
+  color: #5C3D2A;
+  line-height: 1.75;
+  margin-bottom: 14px;
+}
+.fg-about__box strong { color: #3d2314; }
+
+/* ============================================================
+   8. AMBASSADOR
+   ============================================================ */
+.fg-ambassador {
+  background: #f5efe8;
+  padding: 24px 6% 90px;
+}
+.fg-ambassador__grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.fg-amb-card {
+  background: #faf6f0;
+  border-radius: 14px;
+  overflow: hidden;
+  border: 1px solid #d4b89a;
+}
+.fg-amb-card__text { padding: 36px 36px 40px; }
+.fg-amb-card__text h3 {
+  font-family: 'Poppins', sans-serif;
+  font-size: 24px;
+  font-weight: 700;
+  color: #9c6f4a;
+  margin-bottom: 14px;
+}
+.fg-amb-card__text p {
+  font-size: 13.5px;
+  color: #5C3D2A;
+  line-height: 1.75;
+  margin-bottom: 22px;
+}
+.fg-amb-card__img {
+  width: 100%;
+  height: 100%;
+  min-height: 280px;
+  object-fit: cover;
+  background: #ede4da;
+}
+
+/* ============================================================
+   RESPONSIVE
+   ============================================================ */
+@media (max-width: 900px) {
+  .fg-hero { flex-direction: column; padding: 44px 24px 0; min-height: auto; }
+  .fg-hero__left { flex: none; padding-right: 0; margin-bottom: 30px; text-align: center; }
+  .fg-hero__stars { justify-content: center; }
+  .fg-hero__headline { font-size: 30px; }
+  .fg-hero__offer { font-size: 18px; }
+  .fg-hero__right { width: 100%; }
+  .fg-hero__img { height: 300px; }
+
+  .fg-feature { flex-direction: column; padding: 50px 24px; gap: 30px; }
+  .fg-feature__left { flex: none; width: 100%; }
+  .fg-feature__note { display: none; }
+  .fg-feature__img { height: 280px; }
+  .fg-info-cards { grid-template-columns: 1fr; }
+
+  .fg-reviews__grid { grid-template-columns: 1fr; }
+
+  .fg-ing-grid { grid-template-columns: 1fr; }
+  .fg-ing-center .fg-ing-card { width: 100%; }
+
+  .fg-about__grid { grid-template-columns: 1fr; }
+  .fg-about__img { height: 260px; }
+
+  .fg-ambassador__grid { grid-template-columns: 1fr; }
+  .fg-amb-card__img { min-height: 220px; }
+}
+</style>
+
+<!-- ================================================================
+     1. ANNOUNCEMENT BAR
+     ================================================================ -->
+<div class="fg-bar">
+  <p><strong>SUMMER SALE</strong> — Use code <strong>SUMMER30</strong> &middot; 30% off all bundles + Free Gifts</p>
+</div>
+
+<!-- ================================================================
+     2. HERO
+     ================================================================ -->
+<section class="fg-hero">
+  <div class="fg-hero__left">
+    <p class="fg-hero__eyebrow">FUEL YOUR BODY &amp; <span>MIND</span></p>
+    <h1 class="fg-hero__headline">SUMMER SALE —<br>LIMITED STOCK</h1>
+    <p class="fg-hero__offer">30% Off Bundles +<br>Free Gifts Worth €40</p>
+    <div class="fg-hero__stars">
+      <span class="fg-stars">★★★★★</span>
+      <p>207,000+ Reviews</p>
+    </div>
+    <a href="/collections/all" class="fg-btn fg-btn--dark">SHOP NOW &rarr;</a>
+    <p class="fg-guarantee">🛡&nbsp; 30-Day Money Back Guarantee</p>
+  </div>
+  <div class="fg-hero__right">
+    <!-- SWAP hero image: go to Shopify Admin → Content → Files, upload your image, copy the URL, paste it into src="" below -->
+    <img id="fg-hero-img" src="" alt="FÜNGY Mushroom Coffee product" class="fg-hero__img">
+  </div>
+</section>
+
+<!-- ================================================================
+     3. SCROLLING TICKER
+     ================================================================ -->
+<div class="fg-ticker">
+  <div class="fg-ticker__track">
+    <span class="fg-ticker__item">🧠 Sharp Focus <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">⚡ Sustained Energy <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">✨ Mood Booster <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">🌿 Gut Health <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">🔥 No Jitters <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">💤 Better Sleep <span class="fg-ticker__dot"></span></span>
+    <!-- duplicated for seamless loop -->
+    <span class="fg-ticker__item">🧠 Sharp Focus <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">⚡ Sustained Energy <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">✨ Mood Booster <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">🌿 Gut Health <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">🔥 No Jitters <span class="fg-ticker__dot"></span></span>
+    <span class="fg-ticker__item">💤 Better Sleep <span class="fg-ticker__dot"></span></span>
+  </div>
+</div>
+
+<!-- ================================================================
+     4. FEATURE SPLIT (product detail)
+     ================================================================ -->
+<section class="fg-feature">
+  <div class="fg-feature__left">
+    <!-- SWAP feature image: upload lifestyle/product close-up to Shopify Files, paste URL into src="" -->
+    <img id="fg-feature-img" src="" alt="FÜNGY Mushroom Coffee close-up" class="fg-feature__img">
+    <span class="fg-feature__note fg-feature__note--tl">Rich &amp; creamy mouth-feel</span>
+    <span class="fg-feature__note fg-feature__note--tr">Hint of roasted hazelnut</span>
+    <span class="fg-feature__note fg-feature__note--bl">Grounded in robust coffee flavor</span>
+  </div>
+  <div class="fg-feature__right">
+    <p class="fg-feature__tags">ENERGY &nbsp;|&nbsp; FOCUS &nbsp;|&nbsp; GUT HEALTH &nbsp;|&nbsp; IMMUNITY</p>
+    <h2 class="fg-feature__title">Covering All Aspects<br><span>of Health</span></h2>
+    <p class="fg-feature__body">All-day energy &amp; focus, no jitters or crash. Enjoy enhanced well-being every day with the power of 6 functional mushrooms.</p>
+    <div class="fg-info-cards">
+      <div class="fg-info-card">
+        <p class="fg-info-card__label">Flavor</p>
+        <div class="fg-info-card__item">Smooth &amp; creamy like your favorite latte</div>
+        <div class="fg-info-card__item">Nutty aroma &amp; robust flavor</div>
+      </div>
+      <div class="fg-info-card">
+        <p class="fg-info-card__label">Feeling</p>
+        <p>You'll get jitter-free energy that boosts gut health, immunity, and your mood — every single day.</p>
+      </div>
+    </div>
+    <div class="fg-badges">
+      <div class="fg-badge"><div class="fg-badge__icon">☕</div><div class="fg-badge__text">48mg<br>Caffeine</div></div>
+      <div class="fg-badge"><div class="fg-badge__icon">🌾</div><div class="fg-badge__text">Gluten<br>Free</div></div>
+      <div class="fg-badge"><div class="fg-badge__icon">🌱</div><div class="fg-badge__text">100%<br>Vegan</div></div>
+      <div class="fg-badge"><div class="fg-badge__icon">🚫</div><div class="fg-badge__text">No<br>Sugar</div></div>
+      <div class="fg-badge"><div class="fg-badge__icon">✅</div><div class="fg-badge__text">Non<br>GMO</div></div>
+    </div>
+    <a href="/products/mushroom-coffee" class="fg-btn">VIEW PRODUCT &rarr;</a>
+  </div>
+</section>
+
+<!-- ================================================================
+     5. REVIEWS
+     ================================================================ -->
+<section class="fg-reviews">
+  <p class="fg-label">200K+ Five Star Reviews</p>
+  <h2 class="fg-reviews__heading">Join The <span>FÜNGY</span> Revolution</h2>
+  <p class="fg-reviews__sub">Hear from FÜNGY drinkers everywhere who are experiencing the life-changing benefits of mushrooms.</p>
+  <p class="fg-reviews__count">★★★★★ &nbsp;207,000+ Reviews</p>
+
+  <div class="fg-reviews__grid">
+
+    <div class="fg-review-card">
+      <!-- SWAP review photo 1: upload customer photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-review-img-1" src="" alt="FÜNGY customer Sarah" class="fg-review-card__img">
+      <div class="fg-review-card__body">
+        <div class="fg-review-card__stars">★★★★★</div>
+        <p class="fg-review-card__title">Must-Have for Energy &amp; Focus</p>
+        <p class="fg-review-card__text">Highly recommend trying this. It tastes amazing and the focus boost is real — no crash whatsoever. I'll never go back to regular coffee.</p>
+        <p class="fg-review-card__name">Sarah M.</p>
+        <p class="fg-review-card__verified">✅ Verified Buyer</p>
+      </div>
+    </div>
+
+    <div class="fg-review-card">
+      <!-- SWAP review photo 2: upload customer photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-review-img-2" src="" alt="FÜNGY customer Tom" class="fg-review-card__img">
+      <div class="fg-review-card__body">
+        <div class="fg-review-card__stars">★★★★★</div>
+        <p class="fg-review-card__title">Changed My Morning Routine</p>
+        <p class="fg-review-card__text">I used to get anxious from regular coffee. Since switching to FÜNGY I feel calm, focused and productive all day. The taste is incredible too.</p>
+        <p class="fg-review-card__name">Tom K.</p>
+        <p class="fg-review-card__verified">✅ Verified Buyer</p>
+      </div>
+    </div>
+
+    <div class="fg-review-card">
+      <!-- SWAP review photo 3: upload customer photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-review-img-3" src="" alt="FÜNGY customer Lisa" class="fg-review-card__img">
+      <div class="fg-review-card__body">
+        <div class="fg-review-card__stars">★★★★★</div>
+        <p class="fg-review-card__title">Best Decision of 2025</p>
+        <p class="fg-review-card__text">My gut health has improved so much since drinking this daily. It's smooth, delicious and the mushroom benefits are genuinely noticeable after a few weeks.</p>
+        <p class="fg-review-card__name">Lisa V.</p>
+        <p class="fg-review-card__verified">✅ Verified Buyer</p>
+      </div>
+    </div>
+
+  </div>
+
+  <a href="/collections/all" class="fg-btn fg-btn--dark">SHOP FÜNGY TODAY &rarr;</a>
+  <p class="fg-guarantee">🛡&nbsp; 30-Day Money Back Guarantee</p>
+</section>
+
+<!-- ================================================================
+     6. INGREDIENTS GRID
+     ================================================================ -->
+<section class="fg-ingredients">
+  <div class="fg-ingredients__header">
+    <p class="fg-label">Superfood Ingredients</p>
+    <h2 class="fg-ingredients__title">Our 100% Organic,<br><span>6-Mushroom Blend</span></h2>
+    <p class="fg-ingredients__body">Each organic mushroom in our blend was carefully handpicked for its distinct health benefits, to address your physical and mental wellbeing.</p>
+  </div>
+
+  <div class="fg-ing-grid">
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Stamina</p>
+        <h3 class="fg-ing-card__name">Cordyceps</h3>
+        <p class="fg-ing-card__desc">Increases oxygenation to sustain energy and support rapid recovery.</p>
+      </div>
+      <!-- SWAP: upload cordyceps photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-cordyceps" src="" alt="Cordyceps mushroom" class="fg-ing-card__img">
+    </div>
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Focus</p>
+        <h3 class="fg-ing-card__name">Lion's Mane</h3>
+        <p class="fg-ing-card__desc">Supports calm, laser-sharp focus and boosts overall brain health.</p>
+      </div>
+      <!-- SWAP: upload lion's mane photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-lionsmane" src="" alt="Lion's Mane mushroom" class="fg-ing-card__img">
+    </div>
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Mood</p>
+        <h3 class="fg-ing-card__name">Reishi</h3>
+        <p class="fg-ing-card__desc">Boosts your mood, relieves stress and supports peaceful sleep.</p>
+      </div>
+      <!-- SWAP: upload reishi photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-reishi" src="" alt="Reishi mushroom" class="fg-ing-card__img">
+    </div>
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Gut Health</p>
+        <h3 class="fg-ing-card__name">Turkey Tail</h3>
+        <p class="fg-ing-card__desc">Protects your gut and promotes healthy digestion.</p>
+      </div>
+      <!-- SWAP: upload turkey tail photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-turkeytail" src="" alt="Turkey Tail mushroom" class="fg-ing-card__img">
+    </div>
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Immunity</p>
+        <h3 class="fg-ing-card__name">Shiitake</h3>
+        <p class="fg-ing-card__desc">Promotes metabolic function and supports the immune system.</p>
+      </div>
+      <!-- SWAP: upload shiitake photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-shiitake" src="" alt="Shiitake mushroom" class="fg-ing-card__img">
+    </div>
+
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Longevity</p>
+        <h3 class="fg-ing-card__name">King Trumpet</h3>
+        <p class="fg-ing-card__desc">Contains amino acids and antioxidants that reduce oxidative stress.</p>
+      </div>
+      <!-- SWAP: upload king trumpet photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-kingtrumpet" src="" alt="King Trumpet mushroom" class="fg-ing-card__img">
+    </div>
+
+  </div>
+
+  <div class="fg-ing-center">
+    <div class="fg-ing-card">
+      <div class="fg-ing-card__info">
+        <p class="fg-ing-card__tag">For Gut Comfort</p>
+        <h3 class="fg-ing-card__name">Organic Fiber</h3>
+        <p class="fg-ing-card__desc">Our gentle fiber blend supports digestive health &amp; a balanced gut microbiome.</p>
+      </div>
+      <!-- SWAP: upload organic fiber photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ing-fiber" src="" alt="Organic fiber" class="fg-ing-card__img">
+    </div>
+  </div>
+
+  <div class="fg-ingredients__cta">
+    <a href="/collections/all" class="fg-btn fg-btn--dark">SHOP FÜNGY TODAY &rarr;</a>
+    <p class="fg-guarantee">🛡&nbsp; 30-Day Money Back Guarantee</p>
+  </div>
+</section>
+
+<!-- ================================================================
+     7. ABOUT / FOUNDER
+     ================================================================ -->
+<section class="fg-about">
+  <div class="fg-about__header">
+    <p class="fg-label">Who We Are</p>
+    <h2 class="fg-about__title">Beyond Your <span>Daily Ritual</span></h2>
+    <p class="fg-about__intro">We want to help you FÜNGY all aspects of life, by offering a daily ritual and community that will help you improve day by day, both mentally and physically.</p>
+  </div>
+  <div class="fg-about__grid">
+    <!-- SWAP founder image: upload founder/team photo to Shopify Files, paste URL into src="" -->
+    <img id="fg-about-img" src="" alt="FÜNGY founders" class="fg-about__img">
+    <div class="fg-about__box">
+      <h3>Learn More About Us</h3>
+      <p>For years, we ran on regular coffee. Our consumption became a dependency that made us anxious and unfocused. <strong>We knew we needed something better — so we made it.</strong></p>
+      <p>We're the founders of FÜNGY, and we're here for a simple reason: to share the daily ritual that has transformed our lives for the better, with all of you.</p>
+      <a href="/pages/about" class="fg-btn" style="margin-top:10px;">VIEW MORE &rarr;</a>
+    </div>
+  </div>
+</section>
+
+<!-- ================================================================
+     8. AMBASSADOR
+     ================================================================ -->
+<section class="fg-ambassador">
+  <div class="fg-ambassador__grid">
+
+    <div class="fg-amb-card">
+      <div class="fg-amb-card__text">
+        <h3>Become An Ambassador</h3>
+        <p>Join the FÜNGY Brand Ambassador Program — a community of coffee lovers who want to earn with FÜNGY. Enjoy discounts for your followers, commission on sales you drive, and first access to new launches.</p>
+        <a href="/pages/ambassador" class="fg-btn">JOIN THE PROGRAM &rarr;</a>
+      </div>
+    </div>
+
+    <div class="fg-amb-card">
+      <!-- SWAP ambassador image: upload community photo to Shopify Files, paste URL into src="" -->
+      <img id="fg-ambassador-img" src="" alt="FÜNGY community" class="fg-amb-card__img">
+    </div>
+
+  </div>
+</section>
+
+</div>
