@@ -20,6 +20,7 @@ const config: Config = {
         ink: "#1A1A1A",
         mist: "#7A6E65",
         sage: "#4E7A5C",
+        amber: "#C98A4A",
       },
       fontFamily: {
         sans: ["var(--font-inter)", ...defaultTheme.fontFamily.sans],
