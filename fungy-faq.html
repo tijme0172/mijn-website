@@ -1,0 +1,740 @@
+<link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,300;0,400;1,300;1,400&family=Inter:wght@400;500&display=swap" rel="stylesheet">
+
+<div class="ffaq">
+<style>
+/* ── RESET & VARS ── */
+.ffaq, .ffaq * { box-sizing: border-box; }
+.ffaq {
+  font-family: 'Inter', sans-serif;
+  color: #1A1A1A;
+  background: #F2EEE8;
+  overflow-x: hidden;
+  --esp: #5C3D2A;
+  --orange: #C98A4A;
+  --sand: #C9AA8F;
+  --taupe: #B09A85;
+  --mushroom: #A89888;
+  --offwhite: #F2EEE8;
+  --white: #ffffff;
+  --ink: #1A1A1A;
+  --mist: #7A6E65;
+}
+.ffaq h1, .ffaq h2, .ffaq h3, .ffaq p { margin: 0; }
+.ffaq a { color: var(--orange); text-decoration: none; }
+.ffaq a:hover { text-decoration: underline; }
+.ffaq img { display: block; max-width: 100%; }
+
+/* ── WAVE ── */
+.ffaq-wave { display: block; width: 100%; line-height: 0; overflow: hidden; }
+.ffaq-wave svg { display: block; width: 100%; }
+
+/* ── SECTION PADDING ── */
+.ffaq-section { padding: clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem); }
+
+/* ── EYEBROW ── */
+.ffaq-eyebrow {
+  font-size: 0.62rem;
+  font-weight: 600;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--orange);
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* ══════════════════════
+   HERO
+══════════════════════ */
+.ffaq-hero {
+  background: var(--esp);
+  padding: clamp(6rem,12vw,10rem) clamp(1.5rem,6vw,5rem) clamp(3rem,5vw,4rem);
+  text-align: center;
+  position: relative;
+  overflow: hidden;
+}
+.ffaq-hero::before {
+  content: '';
+  position: absolute;
+  width: 450px; height: 450px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,138,74,0.12) 0%, transparent 70%);
+  top: -120px; right: -100px;
+  pointer-events: none;
+}
+.ffaq-hero::after {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(201,170,143,0.06) 1px, transparent 0);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.ffaq-hero__inner { position: relative; z-index: 1; max-width: 700px; margin: 0 auto; }
+.ffaq-hero .ffaq-eyebrow { color: rgba(201,170,143,0.6); }
+.ffaq-hero__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(2.4rem,5.5vw,4.5rem);
+  font-weight: 300;
+  line-height: 1.07;
+  letter-spacing: -0.03em;
+  color: #F2EEE8;
+  margin-bottom: 1.25rem;
+}
+.ffaq-hero__title em { font-style: italic; color: var(--sand); }
+.ffaq-hero__sub {
+  font-size: clamp(0.9rem,1.5vw,1rem);
+  color: rgba(201,170,143,0.55);
+  line-height: 1.75;
+}
+.ffaq-hero__sub a { color: var(--sand); text-decoration: underline; text-underline-offset: 3px; }
+.ffaq-hero__sub a:hover { color: var(--offwhite); text-decoration: underline; }
+
+/* ══════════════════════
+   STICKY TAB BAR
+══════════════════════ */
+.ffaq-tabs-wrap {
+  background: var(--white);
+  border-bottom: 0.5px solid rgba(168,152,136,0.3);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+.ffaq-tabs {
+  display: flex;
+  overflow-x: auto;
+  scrollbar-width: none;
+  max-width: 1100px;
+  margin: 0 auto;
+  padding: 0 clamp(1rem,4vw,3rem);
+}
+.ffaq-tabs::-webkit-scrollbar { display: none; }
+.ffaq-tab {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.66rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mist);
+  padding: 1.05rem 1.25rem;
+  border: none;
+  background: none;
+  cursor: pointer;
+  white-space: nowrap;
+  border-bottom: 2px solid transparent;
+  transition: color 0.2s, border-color 0.2s;
+  position: relative;
+  top: 0.5px;
+}
+.ffaq-tab:hover { color: var(--esp); }
+.ffaq-tab.is-active { color: var(--esp); border-bottom-color: var(--orange); }
+
+/* ══════════════════════
+   FAQ BODY
+══════════════════════ */
+.ffaq-body {
+  background: var(--offwhite);
+  padding: clamp(3rem,6vw,5rem) clamp(1.5rem,6vw,5rem);
+  min-height: 50vh;
+}
+.ffaq-panel { display: none; max-width: 760px; margin: 0 auto; }
+.ffaq-panel.is-active { display: block; }
+
+/* Category heading */
+.ffaq-panel__header {
+  display: flex;
+  align-items: baseline;
+  gap: 1rem;
+  margin-bottom: 2.5rem;
+  padding-bottom: 1.25rem;
+  border-bottom: 0.5px solid rgba(168,152,136,0.3);
+}
+.ffaq-panel__num {
+  font-family: 'Poppins', sans-serif;
+  font-size: 2rem;
+  font-weight: 300;
+  color: rgba(201,138,74,0.2);
+  line-height: 1;
+  letter-spacing: -0.02em;
+  flex-shrink: 0;
+  user-select: none;
+}
+.ffaq-panel__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.5rem,3vw,2.2rem);
+  font-weight: 300;
+  color: var(--esp);
+  line-height: 1.2;
+  letter-spacing: -0.015em;
+}
+
+/* ── ACCORDION ── */
+.ffaq-item { border-bottom: 0.5px solid rgba(168,152,136,0.3); }
+.ffaq-item:first-of-type { border-top: 0.5px solid rgba(168,152,136,0.3); }
+
+.ffaq-item__btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 1.25rem 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+}
+.ffaq-item__q {
+  font-family: 'Inter', sans-serif;
+  font-size: 0.94rem;
+  font-weight: 500;
+  color: var(--esp);
+  line-height: 1.4;
+  transition: color 0.2s;
+}
+.ffaq-item__btn:hover .ffaq-item__q,
+.ffaq-item.is-open .ffaq-item__q { color: var(--orange); }
+
+.ffaq-item__icon {
+  flex-shrink: 0;
+  width: 22px; height: 22px;
+  border-radius: 50%;
+  border: 1px solid rgba(168,152,136,0.5);
+  display: flex; align-items: center; justify-content: center;
+  color: var(--mist);
+  transition: transform 0.25s, background 0.2s, border-color 0.2s, color 0.2s;
+}
+.ffaq-item__btn:hover .ffaq-item__icon,
+.ffaq-item.is-open .ffaq-item__icon {
+  border-color: rgba(201,138,74,0.4);
+  color: var(--orange);
+}
+.ffaq-item.is-open .ffaq-item__icon {
+  transform: rotate(45deg);
+  background: rgba(201,138,74,0.1);
+}
+.ffaq-item__icon svg { display: block; }
+
+.ffaq-item__body {
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.35s cubic-bezier(0.25, 0.46, 0.45, 0.94),
+              opacity 0.25s ease;
+  opacity: 0;
+}
+.ffaq-item.is-open .ffaq-item__body {
+  max-height: 400px;
+  opacity: 1;
+}
+.ffaq-item__a {
+  padding-bottom: 1.5rem;
+  font-family: 'Inter', sans-serif;
+  font-size: 0.9rem;
+  color: var(--mist);
+  line-height: 1.85;
+  max-width: 620px;
+}
+
+/* ══════════════════════
+   BOTTOM CTA
+══════════════════════ */
+.ffaq-cta {
+  background: var(--esp);
+  text-align: center;
+  padding: clamp(4rem,8vw,7rem) clamp(1.5rem,6vw,5rem);
+  position: relative;
+  overflow: hidden;
+}
+.ffaq-cta::before {
+  content: '';
+  position: absolute; inset: 0;
+  background-image: radial-gradient(circle at 1px 1px, rgba(201,170,143,0.06) 1px, transparent 0);
+  background-size: 40px 40px;
+  pointer-events: none;
+}
+.ffaq-cta::after {
+  content: '';
+  position: absolute;
+  width: 400px; height: 400px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(201,138,74,0.1) 0%, transparent 70%);
+  bottom: -100px; right: -100px;
+  pointer-events: none;
+}
+.ffaq-cta__inner { position: relative; z-index: 1; max-width: 520px; margin: 0 auto; }
+.ffaq-cta__title {
+  font-family: 'Poppins', sans-serif;
+  font-size: clamp(1.8rem,4vw,2.8rem);
+  font-weight: 300;
+  color: var(--offwhite);
+  line-height: 1.15;
+  letter-spacing: -0.015em;
+  margin-bottom: 1rem;
+}
+.ffaq-cta__title em { font-style: italic; color: var(--sand); }
+.ffaq-cta__sub {
+  font-size: 0.9rem;
+  color: rgba(201,170,143,0.55);
+  line-height: 1.75;
+  margin-bottom: 2.25rem;
+  max-width: 380px;
+  margin-left: auto;
+  margin-right: auto;
+}
+.ffaq-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Poppins', sans-serif;
+  font-size: 0.72rem;
+  font-weight: 400;
+  letter-spacing: 0.16em;
+  text-transform: uppercase;
+  padding: 1rem 2.6rem;
+  border-radius: 3px;
+  background: var(--sand);
+  color: var(--esp);
+  border: none;
+  cursor: pointer;
+  text-decoration: none;
+  transition: background 0.2s, transform 0.15s;
+}
+.ffaq-btn:hover { background: var(--offwhite); text-decoration: none; }
+.ffaq-btn:active { transform: scale(0.97); }
+.ffaq-btn-arrow { transition: transform 0.2s; display: inline-block; }
+.ffaq-btn:hover .ffaq-btn-arrow { transform: translateX(4px); }
+.ffaq-cta__fine {
+  font-size: 0.6rem;
+  color: rgba(201,170,143,0.3);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  margin-top: 1.5rem;
+}
+
+/* ── RESPONSIVE ── */
+@media(max-width: 600px) {
+  .ffaq-tab { padding: 0.9rem 0.9rem; font-size: 0.6rem; }
+  .ffaq-panel__header { flex-direction: column; gap: 0.2rem; }
+  .ffaq-panel__num { font-size: 1.4rem; }
+}
+</style>
+
+
+<!-- ══════════ HERO ══════════ -->
+<section class="ffaq-hero">
+  <div class="ffaq-hero__inner">
+    <span class="ffaq-eyebrow">Help Centre</span>
+    <h1 class="ffaq-hero__title">
+      Everything you <em>need to know.</em>
+    </h1>
+    <p class="ffaq-hero__sub">
+      Can't find what you're looking for?
+      <a href="mailto:info@drinkfungy.com">info@drinkfungy.com</a>
+    </p>
+  </div>
+</section>
+
+<!-- wave: espresso → white -->
+<div class="ffaq-wave" style="background:var(--esp);">
+  <svg viewBox="0 0 1440 40" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,40 C480,0 960,0 1440,40 L1440,40 L0,40 Z" fill="#ffffff"/>
+  </svg>
+</div>
+
+
+<!-- ══════════ STICKY TABS ══════════ -->
+<div class="ffaq-tabs-wrap">
+  <div class="ffaq-tabs" role="tablist">
+    <button class="ffaq-tab is-active" data-tab="coffee">The Coffee</button>
+    <button class="ffaq-tab" data-tab="howto">How to Make It</button>
+    <button class="ffaq-tab" data-tab="mushrooms">The Mushrooms</button>
+    <button class="ffaq-tab" data-tab="safety">Safety</button>
+    <button class="ffaq-tab" data-tab="shipping">Shipping</button>
+    <button class="ffaq-tab" data-tab="guarantee">30-Day Guarantee</button>
+  </div>
+</div>
+
+
+<!-- ══════════ FAQ BODY ══════════ -->
+<div class="ffaq-body">
+
+  <!-- PANEL 1: The Coffee -->
+  <div class="ffaq-panel is-active" id="ffaq-panel-coffee">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">01</span>
+      <h2 class="ffaq-panel__title">The Coffee</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">What is Fungy Mushroom Coffee?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Fungy is organic Arabica coffee blended with six functional mushrooms — Lion's Mane, Cordyceps, Reishi, Turkey Tail, Shiitake and King Trumpet. Each cup delivers 2000mg of mushroom extract alongside a gentle 48mg of caffeine. Same morning ritual. Completely different experience inside the body.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Does it taste like mushrooms?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">No. Fungy tastes like coffee — rich, smooth, familiar. The mushroom extracts are tasteless at this concentration. Hand a cup to someone without telling them, and they would call it a good coffee. Nothing more, nothing less.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How many cups are in a bag?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Each bag contains 180g — enough for 30 cups at 6g per serving. One bag. One full month of mornings.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How much caffeine is in a cup?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">48mg per cup — roughly half the caffeine of a standard espresso. Enough to feel the lift. Not enough to trigger the jitters, the anxiety, or the 3pm crash.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Are the ingredients organic?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Yes. Every ingredient is 100% organic — the Arabica coffee base and all six mushroom extracts.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PANEL 2: How to Make It -->
+  <div class="ffaq-panel" id="ffaq-panel-howto">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">02</span>
+      <h2 class="ffaq-panel__title">How to Make It</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How do I make Fungy?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Add one heaped teaspoon (around 6g) to your cup. Pour over hot water, cold water, or milk — whichever you prefer. Mix with a frother for 20–30 seconds until smooth. Done.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Can I make it iced?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Yes. Use cold water or cold milk, froth well, and pour over ice. Works just as well cold as it does hot.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Can I add milk or sweeteners?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Absolutely. Fungy works with any milk — dairy, oat, almond, whatever you use. For sweeteners, a little honey goes especially well. Our founder Tijme has his that way every morning.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Do I need any special equipment?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">A handheld frother is all you need for a smooth, evenly mixed cup. Most people already have one. A small whisk works fine too.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PANEL 3: The Mushrooms -->
+  <div class="ffaq-panel" id="ffaq-panel-mushrooms">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">03</span>
+      <h2 class="ffaq-panel__title">The Mushrooms</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Which mushrooms are in Fungy, and what do they do?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Six mushrooms, each with a specific role. Lion's Mane for calm, clear focus. Cordyceps for natural sustained energy at the cellular level. Reishi for stress relief and deeper sleep. Turkey Tail for gut health and microbiome support. Shiitake for daily immune support. King Trumpet for long-term cellular protection. Each cup delivers 2000mg of combined extract — not a token amount.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How much mushroom extract is in each cup?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">2000mg of functional mushroom extract per serving. Every batch is third-party lab tested to confirm exactly what is in the cup.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Is Fungy third-party tested?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Yes. Every batch is independently tested before it ships. No proprietary blends, no hidden fillers — exactly what is on the label is what is in the bag.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">When will I start to notice a difference?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Most people notice smoother energy and fewer jitters from the first cup. The deeper benefits — better sleep, a calmer gut, more sustained focus — typically build over two to four weeks of consistent daily use.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PANEL 4: Safety -->
+  <div class="ffaq-panel" id="ffaq-panel-safety">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">04</span>
+      <h2 class="ffaq-panel__title">Safety</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Is Fungy safe?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Fungy is made from natural, organic ingredients and is safe for most healthy adults. As with any supplement, speak to your doctor if you have specific health concerns before starting.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Can I take it if I'm pregnant or breastfeeding?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">We always recommend speaking to your doctor first if you are pregnant, breastfeeding, or managing a health condition — as you would with any supplement or dietary change.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">I'm sensitive to caffeine. Can I still drink Fungy?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">At 48mg per cup — roughly half a standard espresso — Fungy is significantly lower in caffeine than regular coffee. Many people who find normal coffee too intense switch to Fungy for exactly this reason. If you have a medical sensitivity to caffeine, check with your doctor first.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Can I take it alongside medication?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">If you are currently taking prescribed medication, speak to your doctor before adding any new supplement to your routine.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PANEL 5: Shipping -->
+  <div class="ffaq-panel" id="ffaq-panel-shipping">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">05</span>
+      <h2 class="ffaq-panel__title">Shipping &amp; Orders</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Where do you ship?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">We ship to Australia and across Europe. Free shipping on every order, everywhere.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Is shipping really free?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Yes. Always. No minimum order, no hidden charges at checkout.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How long does delivery take?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">We pack and dispatch your order the next working day. Delivery typically takes 6–10 days from dispatch, depending on your location.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How do I track my order?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">You will receive a tracking link by email as soon as your order ships. If you have not received it within two working days, email us at <a href="mailto:info@drinkfungy.com">info@drinkfungy.com</a> and we will sort it out.</p>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- PANEL 6: 30-Day Guarantee -->
+  <div class="ffaq-panel" id="ffaq-panel-guarantee">
+    <div class="ffaq-panel__header">
+      <span class="ffaq-panel__num">06</span>
+      <h2 class="ffaq-panel__title">30-Day Guarantee</h2>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">What is the 30-day money-back guarantee?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">If you try Fungy and do not experience the benefits, we will refund you in full — no questions asked. The guarantee covers one opened bag per customer, for orders placed on drinkfungy.com, and must be claimed within 30 days of your delivery date. Any additional bags in the same order must be returned unopened and in their original condition to qualify.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">How do I claim a refund?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">Email us at <a href="mailto:info@drinkfungy.com">info@drinkfungy.com</a> within 30 days of receiving your order. Include your order number and we will take care of the rest.</p>
+      </div>
+    </div>
+
+    <div class="ffaq-item">
+      <button class="ffaq-item__btn" aria-expanded="false">
+        <span class="ffaq-item__q">Are there any exceptions to the guarantee?</span>
+        <span class="ffaq-item__icon"><svg width="11" height="11" viewBox="0 0 11 11" fill="none"><line x1="5.5" y1="1" x2="5.5" y2="10" stroke="currentColor" stroke-width="2" stroke-linecap="round"/><line x1="1" y1="5.5" x2="10" y2="5.5" stroke="currentColor" stroke-width="2" stroke-linecap="round"/></svg></span>
+      </button>
+      <div class="ffaq-item__body">
+        <p class="ffaq-item__a">The guarantee applies to one opened bag per customer. It covers orders placed directly on drinkfungy.com only, can only be claimed once per product per person, and does not apply to free gifts included with an order. We reserve the right to refuse claims where misuse is evident.</p>
+      </div>
+    </div>
+  </div>
+
+</div><!-- /ffaq-body -->
+
+
+<!-- wave: offwhite → espresso -->
+<div class="ffaq-wave" style="background:var(--offwhite);">
+  <svg viewBox="0 0 1440 50" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
+    <path d="M0,0 C360,50 1080,50 1440,0 L1440,50 L0,50 Z" fill="#5C3D2A"/>
+  </svg>
+</div>
+
+
+<!-- ══════════ BOTTOM CTA ══════════ -->
+<section class="ffaq-cta">
+  <div class="ffaq-cta__inner">
+    <span class="ffaq-eyebrow" style="color:rgba(201,170,143,0.6);text-align:center;display:block;">Ready when you are</span>
+    <h2 class="ffaq-cta__title">
+      Still not sure? <em>Try it for 30 days.</em>
+    </h2>
+    <p class="ffaq-cta__sub">
+      If Fungy does not change your mornings, we will refund you in full. One cup a day is all it takes.
+    </p>
+    <a href="https://drinkfungy.com/products/mushroom-coffee" class="ffaq-btn">
+      Start your ritual <span class="ffaq-btn-arrow">→</span>
+    </a>
+    <p class="ffaq-cta__fine">
+      Free shipping · 30-day guarantee · No subscription required
+    </p>
+  </div>
+</section>
+
+</div><!-- /ffaq -->
+
+
+<script>
+(function () {
+
+  /* ── TABS ── */
+  var tabs    = document.querySelectorAll('.ffaq-tab');
+  var panels  = document.querySelectorAll('.ffaq-panel');
+
+  tabs.forEach(function (tab) {
+    tab.addEventListener('click', function () {
+      var target = this.dataset.tab;
+
+      tabs.forEach(function (t) { t.classList.remove('is-active'); });
+      panels.forEach(function (p) { p.classList.remove('is-active'); });
+
+      this.classList.add('is-active');
+
+      var panel = document.getElementById('ffaq-panel-' + target);
+      if (panel) panel.classList.add('is-active');
+    });
+  });
+
+  /* ── ACCORDION ── */
+  var items = document.querySelectorAll('.ffaq-item');
+
+  items.forEach(function (item) {
+    var btn = item.querySelector('.ffaq-item__btn');
+    btn.addEventListener('click', function () {
+      var isOpen = item.classList.contains('is-open');
+
+      /* close all items in this panel */
+      var panel = item.closest('.ffaq-panel');
+      panel.querySelectorAll('.ffaq-item').forEach(function (i) {
+        i.classList.remove('is-open');
+        i.querySelector('.ffaq-item__btn').setAttribute('aria-expanded', 'false');
+      });
+
+      /* open clicked item if it was closed */
+      if (!isOpen) {
+        item.classList.add('is-open');
+        btn.setAttribute('aria-expanded', 'true');
+      }
+    });
+  });
+
+})();
+</script>
+
+
+{% schema %}
+{
+  "name": "Fungy FAQ",
+  "tag": "div",
+  "settings": [],
+  "presets": [{ "name": "Fungy FAQ" }]
+}
+{% endschema %}
