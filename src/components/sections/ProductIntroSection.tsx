@@ -1,6 +1,7 @@
 import { SlideInView } from "@/components/motion/SlideInView";
 import { FadeInView } from "@/components/motion/FadeInView";
 import { TextReveal } from "@/components/motion/TextReveal";
+import { Zap, Shield, CheckCircle, Leaf } from "lucide-react";
 
 export function ProductIntroSection() {
   return (
@@ -25,9 +26,26 @@ export function ProductIntroSection() {
             Each serving is packed with adaptogens that help your body manage
             stress, sharpen your focus, and support your gut — all in one cup.
           </p>
-          <a href="#products" className="btn-primary inline-block text-sm">
+          <a href="#products" className="btn-primary inline-block text-sm mb-10">
             Explore Products
           </a>
+
+          <div className="grid grid-cols-2 gap-3">
+            {[
+              { icon: Zap, label: "No crash, all day energy" },
+              { icon: Shield, label: "Supports a healthy gut" },
+              { icon: CheckCircle, label: "Third-party lab tested" },
+              { icon: Leaf, label: "Natural stress reliever" },
+            ].map(({ icon: Icon, label }) => (
+              <div
+                key={label}
+                className="flex items-center gap-3 border border-sand-light rounded-lg px-3 py-3 bg-surface-warm"
+              >
+                <Icon size={18} className="text-espresso/70 shrink-0" strokeWidth={1.5} />
+                <span className="text-xs font-semibold text-ink leading-snug">{label}</span>
+              </div>
+            ))}
+          </div>
         </SlideInView>
 
         <FadeInView
